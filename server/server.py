@@ -72,7 +72,7 @@ def client_input(msg):
         print("receivedtest")
 
 
-        
+
 def client_thread(connection, ip, port, max_buffer_size = 5120):
     is_active = True
 
@@ -106,8 +106,46 @@ def receive_input(connection, max_buffer_size):
 
 def process_input(input_str):
     print("Processing the input received from client")
+#    return "Hello " + str(input_str).upper()
+    if input_str == "CMD_VITESSE X" :
+        soundEngine()
+    elif input_str == "CMD_DEGAT" :
+        soundDmg()
+    elif input_str == "CMD_TRP":
+        soundTorp()
+    elif input_str == "CMD_EXP":
+        soundExpl()
+    elif input_str == "CMD_DEBLOCK":
+        unlock()
 
-    return "Hello " + str(input_str).upper()
+
+
+def unlock():
+    for c in connections:
+        send(c[1], "CMD_DEBLOCK")
+
+def soundEngine():
+    #bruit de moteur
+    pass
+
+def soundDmg():
+    #bruit de dmg
+    pass
+
+def soundTorp():
+    #decompte allarmant
+    pass
+
+def soundExpl():
+    #sond explosion
+    pass
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     main()

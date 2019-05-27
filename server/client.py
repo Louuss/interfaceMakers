@@ -2,6 +2,8 @@
 import socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8888))
+
+
 while 1:
     data = client_socket.recv(512)
     if ( data == 'q' or data == 'Q'):
@@ -9,4 +11,3 @@ while 1:
         break;
     else:
         print("RECIEVED:" + str(data))
-        

@@ -12,7 +12,7 @@ connections = []
 
 
 def main():
-    
+
     start_server()
 
 def start_server():
@@ -107,13 +107,13 @@ def process_input(input_str):
 
     print(input_str)
     if input_str == "CMD_VITESSE X" :
-        Thread(target=soundEngine).start())
+        Thread(target=soundEngine).start()
     elif input_str == "CMD_DEGAT" :
-        Thread(target=soundDmg.start())
+        Thread(target=soundDmg).start()
     elif input_str == "CMD_TRP":
-        Thread(target=soundTorp.start())
+        Thread(target=soundTorp).start()
     elif input_str == "CMD_EXP":
-        Thread(target=soundExpl.start())
+        Thread(target=soundExpl).start()
     elif input_str == "CMD_DEBLOCK":
         unlock()
 

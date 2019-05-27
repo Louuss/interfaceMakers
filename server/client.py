@@ -9,4 +9,3 @@ while 1:
         break;
     else:
         print("RECIEVED:" + str(data))
-        

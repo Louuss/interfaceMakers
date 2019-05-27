@@ -67,12 +67,12 @@ def broadcast(msg):
     for c in connections:
         c[0].send(msg.encode())
 
-def client_input(msg):
-    if msg == test:
+def parse(msg):
+    if msg == "test":
         print("receivedtest")
 
 
-        
+
 def client_thread(connection, ip, port, max_buffer_size = 5120):
     is_active = True
 

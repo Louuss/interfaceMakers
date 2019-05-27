@@ -8,8 +8,6 @@ import wave
 #define stream chunk
 chunk = 1024
 
-
-
 connections = []
 
 
@@ -235,7 +233,6 @@ def soundExpl():
     #close PyAudio
     p.terminate()
     pass
-
 
 
 if __name__ == "__main__":

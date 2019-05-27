@@ -7,14 +7,7 @@ connections = []
 
 
 def main():
-    Thread(target=start_server).start()
-
-    ip = input("ip? ")
-    msg = input("msg? ")
-
-    send(ip,msg)
-
-    print("hey")
+    start_server()
 
 def start_server():
     host = "127.0.0.1"
@@ -86,8 +79,7 @@ def client_thread(connection, ip, port, max_buffer_size = 5120):
             print("Connection " + ip + ":" + port + " closed")
             is_active = False
         else:
-            print("Processed result: {}".format(client_input))
-            parse(client_input)
+            process_input(client_input)
             #connection.sendall("-".encode("utf8"))
 
 
@@ -99,14 +91,15 @@ def receive_input(connection, max_buffer_size):
         print("The input size is greater than expected {}".format(client_input_size))
 
     decoded_input = client_input.decode("utf8").rstrip()  # decode and strip end of line
-    result = process_input(decoded_input)
 
-    return result
+    return decoded_input
 
 
 def process_input(input_str):
     print("Processing the input received from client")
 #    return "Hello " + str(input_str).upper()
+
+    print(input_str)
     if input_str == "CMD_VITESSE X" :
         soundEngine()
     elif input_str == "CMD_DEGAT" :

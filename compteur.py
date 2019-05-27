@@ -58,6 +58,12 @@ from threading import Thread
 import time
 from tkinter import *
 import tkinter.messagebox as mb
+import socket
+
+
+ip = '127.0.0.1'
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((ip, 8888)) #definir adresse ip
 
 __end = 0
 

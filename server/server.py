@@ -2,19 +2,18 @@ import socket
 import sys
 import traceback
 from threading import Thread
+import pyaudio
+import wave
+
+#define stream chunk
+chunk = 1024
 
 connections = []
 
 
 def main():
-    Thread(target=start_server).start()
-
-    ip = input("ip? ")
-    msg = input("msg? ")
-
-    send(ip,msg)
-
-    print("hey")
+    
+    start_server()
 
 def start_server():
     host = "127.0.0.1"
@@ -86,8 +85,7 @@ def client_thread(connection, ip, port, max_buffer_size = 5120):
             print("Connection " + ip + ":" + port + " closed")
             is_active = False
         else:
-            print("Processed result: {}".format(client_input))
-            parse(client_input)
+            process_input(client_input)
             #connection.sendall("-".encode("utf8"))
 
 
@@ -99,15 +97,143 @@ def receive_input(connection, max_buffer_size):
         print("The input size is greater than expected {}".format(client_input_size))
 
     decoded_input = client_input.decode("utf8").rstrip()  # decode and strip end of line
-    result = process_input(decoded_input)
 
-    return result
+    return decoded_input
 
 
 def process_input(input_str):
     print("Processing the input received from client")
+#    return "Hello " + str(input_str).upper()
 
-    return "Hello " + str(input_str).upper()
+    print(input_str)
+    if input_str == "CMD_VITESSE X" :
+        Thread(target=soundEngine).start())
+    elif input_str == "CMD_DEGAT" :
+        Thread(target=soundDmg.start())
+    elif input_str == "CMD_TRP":
+        Thread(target=soundTorp.start())
+    elif input_str == "CMD_EXP":
+        Thread(target=soundExpl.start())
+    elif input_str == "CMD_DEBLOCK":
+        unlock()
+
+
+
+def unlock():
+    #envoi à tous les groupe que la table est debloquée
+    for c in connections:
+        send(c[1], "CMD_DEBLOCK")
+
+def soundEngine():
+    #bruit de moteur
+    #open a wav format music
+    f = wave.open(r"Moteur.wav","rb")
+    #instantiate PyAudio
+    p = pyaudio.PyAudio()
+    #open stream
+    stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+                    channels = f.getnchannels(),
+                    rate = f.getframerate(),
+                    output = True)
+    #read data
+    data = f.readframes(chunk)
+
+    #play stream
+    while data:
+        stream.write(data)
+        data = f.readframes(chunk)
+
+    #stop stream
+    stream.stop_stream()
+    stream.close()
+
+    #close PyAudio
+    p.terminate()
+    pass
+
+
+def soundDmg():
+    #bruit de dmg
+    #open a wav format music
+    f = wave.open(r"metalclack.wav","rb")
+    #instantiate PyAudio
+    p = pyaudio.PyAudio()
+    #open stream
+    stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+                    channels = f.getnchannels(),
+                    rate = f.getframerate(),
+                    output = True)
+    #read data
+    data = f.readframes(chunk)
+
+    #play stream
+    while data:
+        stream.write(data)
+        data = f.readframes(chunk)
+
+    #stop stream
+    stream.stop_stream()
+    stream.close()
+
+    #close PyAudio
+    p.terminate()
+    pass
+
+def soundTorp():
+    #decompte allarmant
+    #open a wav format music
+    f = wave.open(r"alarm.wav","rb")
+    #instantiate PyAudio
+    p = pyaudio.PyAudio()
+    #open stream
+    stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+                    channels = f.getnchannels(),
+                    rate = f.getframerate(),
+                    output = True)
+    #read data
+    data = f.readframes(chunk)
+
+    #play stream
+    while data:
+        stream.write(data)
+        data = f.readframes(chunk)
+
+    #stop stream
+    stream.stop_stream()
+    stream.close()
+
+    #close PyAudio
+    p.terminate()
+    pass
+
+
+def soundExpl():
+    #sond explosion
+    #open a wav format music
+    f = wave.open(r"explosion.wav","rb")
+    #instantiate PyAudio
+    p = pyaudio.PyAudio()
+    #open stream
+    stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+                    channels = f.getnchannels(),
+                    rate = f.getframerate(),
+                    output = True)
+    #read data
+    data = f.readframes(chunk)
+
+    #play stream
+    while data:
+        stream.write(data)
+        data = f.readframes(chunk)
+
+    #stop stream
+    stream.stop_stream()
+    stream.close()
+
+    #close PyAudio
+    p.terminate()
+    pass
+
 
 if __name__ == "__main__":
     main()

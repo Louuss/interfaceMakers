@@ -9,12 +9,13 @@ connections = []
 def main():
     Thread(target=start_server).start()
 
-    ip = input("ip? ")
-    msg = input("msg? ")
+    while(1):
+        ip = input("ip? ")
+        msg = input("msg? ")
 
-    send(ip,msg)
+        send(ip,msg)
 
-    print("hey")
+        print("Bien envoye")
 
 def start_server():
     host = "127.0.0.1"
@@ -139,10 +140,6 @@ def soundTorp():
 def soundExpl():
     #sond explosion
     pass
-
-
-
-
 
 
 

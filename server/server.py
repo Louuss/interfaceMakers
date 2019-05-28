@@ -116,11 +116,15 @@ def process_input(input_str):
         Thread(target=soundExpl).start()
     elif input_str == "CMD_DEBLOCK":
         unlock()
+    elif input_str == "CMD_VIDEO":
+        send("127.0.0.1","video clavier.mp4")
+        print("Bien envoye")
+        
 
 
 
 def unlock():
-    #envoi à tous les groupe que la table est debloquée
+    #envoi a tous les groupes que la table est debloquee
     for c in connections:
         send(c[1], "CMD_DEBLOCK")
 

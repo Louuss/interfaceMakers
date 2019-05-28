@@ -26,7 +26,7 @@ def play_videoFile(filePath):
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8888))
-msg=input('tki ?')
+msg=input('MESSAGE:  ')
 client_socket.send(msg.encode())
 
 while 1:
